@@ -2,21 +2,43 @@ import $ from "jquery";
 import moment from "moment";
 import "moment/locale/fr";
 
-function debugString(a: string, b: string) {
-  const max = Math.min(a.length, b.length);
+// @ts-ignore
+import * as ics from "ics";
 
-  for (let i = 0; i < max; i++) {
-    console.log("a[i] === b[i]", a[i], b[i], a[i] === b[i]);
-  }
+import { PracticalInformation, Artist } from "./types";
+import { renderArtistes, renderPrice } from "./render";
+
+function generateIcs(
+  info: PracticalInformation,
+  artists: Artist[]
+): Promise<string> {
+  const { dateTime } = info;
+  const utcDateTime = dateTime.utc();
+  const event = {
+    start: [
+      utcDateTime.year(),
+      utcDateTime.month() + 1,
+      utcDateTime.date(),
+      utcDateTime.hour(),
+      utcDateTime.minute()
+    ],
+    duration: { hours: 4 },
+    title: "test",
+    description: `${renderPrice(info.price)}<br>${renderArtistes(artists)}`,
+    location: info.location,
+    url: window.location.href
+  };
+
+  return new Promise((resolve, reject) => {
+    ics.createEvent(event, (error: Error, value: string) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(value);
+      }
+    });
+  });
 }
-
-type Artist = string;
-
-type PracticalInformation = {
-  dateTime: moment.Moment;
-  price: string;
-  location: string;
-};
 
 function hasPracticalInfosBlock(): boolean {
   return !!$(".blockheader > h2:contains(Infos pratiques)").length;
@@ -35,7 +57,7 @@ function getArtists(): Artist[] {
       return this.trim();
     })
     .filter(function() {
-      return !!this;
+      return !!this; // trailing empty li?
     })
     .toArray();
 
@@ -80,16 +102,20 @@ function getPracticalsInfos(): PracticalInformation {
 }
 
 $(document).ready(() => {
+  console.log("Starting Tamkreiz extension...");
+
   if (!hasPracticalInfosBlock()) {
     return;
   }
-  console.log("This page can be parsed");
 
   const artists = getArtists();
-  console.log("Artists are ", artists);
-
   const practicalInfos = getPracticalsInfos();
-  console.log("DateTime is ", practicalInfos.dateTime.format());
-  console.log("price is ", practicalInfos.price);
-  console.log("location is", practicalInfos.location);
+
+  generateIcs(practicalInfos, artists)
+    .then(s => console.log(s))
+    .catch(e => {
+      console.error(
+        `An error occured in the tam-kreiz chrome extension. Please report to the author: ${e}`
+      );
+    });
 });

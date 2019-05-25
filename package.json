@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/jquery": "^3.3.29",
+    "ics": "^2.13.2",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
     "parcel-bundler": "^1.12.3"
