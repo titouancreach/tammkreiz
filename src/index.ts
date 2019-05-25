@@ -9,6 +9,7 @@ import { PracticalInformation, Artist } from "./types";
 import { renderArtistes, renderPrice } from "./render";
 
 function generateIcs(
+  title: string,
   info: PracticalInformation,
   artists: Artist[]
 ): Promise<string> {
@@ -23,7 +24,7 @@ function generateIcs(
       utcDateTime.minute()
     ],
     duration: { hours: 4 },
-    title: "test",
+    title,
     description: `${renderPrice(info.price)}<br>${renderArtistes(artists)}`,
     location: info.location,
     url: window.location.href
@@ -42,6 +43,11 @@ function generateIcs(
 
 function hasPracticalInfosBlock(): boolean {
   return !!$(".blockheader > h2:contains(Infos pratiques)").length;
+}
+
+function getTitle(): string {
+  const titleElement = $("div.blockcontent.blocktextexplication > h3");
+  return titleElement.text();
 }
 
 function getArtists(): Artist[] {
@@ -109,9 +115,10 @@ $(document).ready(() => {
   }
 
   const artists = getArtists();
+  const title = getTitle();
   const practicalInfos = getPracticalsInfos();
 
-  generateIcs(practicalInfos, artists)
+  generateIcs(title, practicalInfos, artists)
     .then(s => console.log(s))
     .catch(e => {
       console.error(
