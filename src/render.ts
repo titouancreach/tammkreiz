@@ -6,6 +6,6 @@ export function renderPrice(price: string): string {
 
 export function renderArtistes(artists: Artist[]): string {
   return `<strong>Artists:</strong><ul>${artists
-    .map(a => `<li>- ${a}</li>`)
+    .map(a => `<li>${a}</li>`)
     .join("")}</ul>`;
 }
