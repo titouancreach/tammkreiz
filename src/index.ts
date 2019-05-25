@@ -18,7 +18,7 @@ type PracticalInformation = {
   location: string;
 };
 
-function hasInfosPratiquesBlock(): boolean {
+function hasPracticalInfosBlock(): boolean {
   return !!$(".blockheader > h2:contains(Infos pratiques)").length;
 }
 
@@ -80,7 +80,7 @@ function getPracticalsInfos(): PracticalInformation {
 }
 
 $(document).ready(() => {
-  if (!hasInfosPratiquesBlock()) {
+  if (!hasPracticalInfosBlock()) {
     return;
   }
   console.log("This page can be parsed");
