@@ -107,13 +107,13 @@ function getPracticalsInfos(): PracticalInformation {
   };
 }
 
-function createDownloadButton(icsString: string): void {
+function createDownloadButton(title: string, icsString: string): void {
   const href = `data:text/calendar;charset=utf8,${icsString}`;
 
   $(
     "div.blockitem.sidebareventcommunity.sidebarblock:has(div.blockheader:contains(Actions)) > div.blockcontent"
   ).append(
-    `<a href="${href}" class="btn btn-default btn-lg btn-communaute" style="margin: 4px 0">
+    `<a href="${href}" download="${title}.ics" class="btn btn-default btn-lg btn-communaute" style="margin: 4px 0">
         <span style="color: black; font-size: 2em" class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
         <span style="color: black; font-size: 2em">Télécharger le fichier agenda</span>
      </a>`
@@ -137,7 +137,7 @@ $(document).ready(() => {
       return s;
     })
     .then(s => {
-      createDownloadButton(s);
+      createDownloadButton(title, s);
     })
     .catch(e => {
       console.error(
