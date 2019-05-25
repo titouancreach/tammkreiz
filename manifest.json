@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+
+  "name": "Tamm kreiz",
+  "description": "Add capabilities to tamm-kreiz.bzh",
+  "version": "1.0",
+
+  "permissions": ["activeTab", "tabs"],
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.tamm-kreiz.bzh/*"],
+      "js": ["dist/index.js"]
+    }
+  ]
+}

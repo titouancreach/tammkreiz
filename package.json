@@ -1,0 +1,16 @@
+{
+  "name": "tammkreiz",
+  "version": "1.0.0",
+  "description": "Add capabilities to tamm-kreiz.bzh",
+  "author": "Titouan CREACH",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel build ./src/index.ts"
+  },
+  "dependencies": {
+    "parcel-bundler": "^1.12.3"
+  },
+  "devDependencies": {
+    "typescript": "^3.4.5"
+  }
+}
