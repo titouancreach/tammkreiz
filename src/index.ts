@@ -107,6 +107,17 @@ function getPracticalsInfos(): PracticalInformation {
   };
 }
 
+function createDownloadButton(): void {
+  $(
+    "div.blockitem.sidebareventcommunity.sidebarblock:has(div.blockheader:contains(Actions)) > div.blockcontent"
+  ).append(
+    `<a href="" class="btn btn-default btn-lg btn-communaute" style="margin: 4px 0">
+        <span style="color: black; font-size: 2em" class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+        <span style="color: black; font-size: 2em">Télécharger le fichier agenda</span>
+     </a>`
+  );
+}
+
 $(document).ready(() => {
   console.log("Starting Tamkreiz extension...");
 
@@ -119,7 +130,13 @@ $(document).ready(() => {
   const practicalInfos = getPracticalsInfos();
 
   generateIcs(title, practicalInfos, artists)
-    .then(s => console.log(s))
+    .then(s => {
+      console.log(s);
+      return s;
+    })
+    .then(s => {
+      createDownloadButton(s);
+    })
     .catch(e => {
       console.error(
         `An error occured in the tam-kreiz chrome extension. Please report to the author: ${e}`
