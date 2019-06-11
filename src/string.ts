@@ -6,7 +6,7 @@ const map = {
   n: "ñ"
 };
 
-export function removeAccentOnChar(c: string) {
+function removeAccentOnChar(c: string) {
   return Object.entries(map).reduce((acc, currentPair) => {
     const [currentKey, currentValue] = currentPair;
     if (currentValue.includes(c)) {
@@ -18,5 +18,5 @@ export function removeAccentOnChar(c: string) {
 }
 
 export function removeAccents(s: string) {
-  return [...s].map(removeAccentOnChar).join();
+  return [...s].map(removeAccentOnChar).join("");
 }
