@@ -1,3 +1,4 @@
+// should cover most french + bretton
 const map = {
   e: "éèêë",
   a: "àâä",
