@@ -10,11 +10,19 @@ const map = {
 
 type char = string;
 
+function isLowercase(a: char) {
+  return a.toLowerCase() === a;
+}
+
 function removeAccentOnChar(c: char): char {
   return Object.entries(map).reduce((acc, currentPair) => {
     const [currentKey, currentValue] = currentPair;
-    if (currentValue.includes(c)) {
-      return currentKey;
+    if (currentValue.includes(c.toLowerCase())) {
+      if (isLowercase(c)) {
+        return currentKey;
+      } else {
+        return currentKey.toUpperCase();
+      }
     } else {
       return acc;
     }
