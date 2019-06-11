@@ -7,6 +7,7 @@ import * as ics from "ics";
 
 import { PracticalInformation, Artist } from "./types";
 import { renderArtistes, renderPrice } from "./render";
+import { removeAccents } from "./string";
 
 function generateIcs(
   title: string,
@@ -110,10 +111,12 @@ function getPracticalsInfos(): PracticalInformation {
 function createDownloadButton(title: string, icsString: string): void {
   const href = `data:text/calendar;charset=utf8,${icsString}`;
 
+  const filename = removeAccents(title);
+
   $(
     "div.blockitem.sidebareventcommunity.sidebarblock:has(div.blockheader:contains(Actions)) > div.blockcontent"
   ).append(
-    `<a href="${href}" download="${title}.ics" class="btn btn-default btn-lg btn-communaute" style="margin: 4px 0">
+    `<a href="${href}" download="${filename}.ics" class="btn btn-default btn-lg btn-communaute" style="margin: 4px 0">
         <span style="color: black; font-size: 2em" class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
         <span style="color: black; font-size: 2em">Télécharger le fichier agenda</span>
      </a>`
