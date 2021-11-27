@@ -23,7 +23,7 @@ function generateIcs(
       utcDateTime.date(),
       utcDateTime.hour(),
       utcDateTime.minute()
-    ],
+    ] as ics.DateArray,
     duration: { hours: 4 },
     title,
     description: `${renderPrice(info.price)}<br>${renderArtistes(artists)}`,
@@ -32,7 +32,7 @@ function generateIcs(
   };
 
   return new Promise((resolve, reject) => {
-    ics.createEvent(event, (error: Error, value: string) => {
+    ics.createEvent(event, (error: Error | undefined, value: string) => {
       if (error) {
         reject(error);
       } else {
