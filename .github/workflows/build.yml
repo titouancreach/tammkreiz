@@ -14,11 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn
 
       - name: Run tests
         run: |
           yarn test
 
-      - name: Build and generate NuGet package
+      - name: Build extension
         run: |
           yarn build
