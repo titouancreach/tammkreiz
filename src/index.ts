@@ -47,7 +47,7 @@ function hasPracticalInfosBlock(): boolean {
 }
 
 function getTitle(): string {
-  const titleElement = $("div.blockcontent.blocktextexplication > h3");
+  const titleElement = $(".introblock.eventintro h1");
   return titleElement.text();
 }
 
