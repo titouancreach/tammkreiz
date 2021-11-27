@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Tamm kreiz",
-  "description": "Add capabilities to tamm-kreiz.bzh",
-  "version": "1.0",
+  "description": "Add capabilities to https://tamm-kreiz.bzh",
+  "version": "@version",
 
   "permissions": ["activeTab", "tabs"],
 
