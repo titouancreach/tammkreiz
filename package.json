@@ -4,7 +4,6 @@
   "description": "Add capabilities to tamm-kreiz.bzh",
   "author": "Titouan CREACH",
   "license": "MIT",
-
   "targets": {
     "extension": {
       "source": "./src/index.ts",
@@ -20,6 +19,7 @@
     "@types/jquery": "^3.3.29",
     "ics": "^2.13.2",
     "jquery": "^3.5.0",
+    "js-base64": "^3.7.2",
     "moment": "^2.24.0",
     "parcel": "^2.0.1"
   },
