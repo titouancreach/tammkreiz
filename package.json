@@ -4,9 +4,16 @@
   "description": "Add capabilities to tamm-kreiz.bzh",
   "author": "Titouan CREACH",
   "license": "MIT",
+
+  "targets": {
+    "extension": {
+      "source": "./src/index.ts",
+      "distDir": "./extension/dist"
+    }
+  },
   "scripts": {
-    "start": "parcel watch ./src/index.ts -d extension/dist",
-    "build": "parcel build ./src/index.ts -d extension/dist",
+    "start": "parcel watch --target extension",
+    "build": "parcel build --target extension",
     "test": "jest"
   },
   "dependencies": {
@@ -14,7 +21,7 @@
     "ics": "^2.13.2",
     "jquery": "^3.5.0",
     "moment": "^2.24.0",
-    "parcel-bundler": "^1.12.3"
+    "parcel": "^2.0.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
