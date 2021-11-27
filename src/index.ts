@@ -123,7 +123,7 @@ function createDownloadButton(title: string, icsString: string): void {
   );
 }
 
-$(document).ready(() => {
+$(() => {
   console.log("Starting Tamkreiz extension...");
 
   if (!hasPracticalInfosBlock()) {
