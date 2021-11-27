@@ -46,6 +46,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: |
-            ${{ github.ref }}.zip
-            extension
+          files: ${{ github.ref }}.zip
