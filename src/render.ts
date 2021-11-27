@@ -1,11 +1,11 @@
 import { Artist } from "./types";
 
 export function renderPrice(price: string): string {
-  return `<strong>Price: </strong> ${price}`;
+  return `<strong>Prix: </strong> ${price}`;
 }
 
 export function renderArtistes(artists: Artist[]): string {
-  return `<strong>Artists:</strong><ul>${artists
+  return `<strong>Artistes:</strong><ul>${artists
     .map(a => `<li>${a}</li>`)
     .join("")}</ul>`;
 }
