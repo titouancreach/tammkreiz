@@ -134,6 +134,8 @@ $(() => {
   const title = getTitle();
   const practicalInfos = getPracticalsInfos();
 
+  console.log(practicalInfos);
+
   generateIcs(title, practicalInfos, artists)
     .then(s => {
       console.log(s);
