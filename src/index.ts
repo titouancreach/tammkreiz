@@ -8,6 +8,7 @@ import * as ics from "ics";
 import { PracticalInformation, Artist } from "./types";
 import { renderArtistes, renderPrice } from "./render";
 import { removeAccents } from "./string";
+import { Base64 } from "js-base64";
 
 function generateIcs(
   title: string,
@@ -109,7 +110,8 @@ function getPracticalsInfos(): PracticalInformation {
 }
 
 function createDownloadButton(title: string, icsString: string): void {
-  const href = `data:text/calendar;charset=utf8,${icsString}`;
+  const b64 = Base64.encode(icsString);
+  const href = `data:text/calendar;charset=UTF-8;base64,${b64}`;
 
   const filename = removeAccents(title);
 
