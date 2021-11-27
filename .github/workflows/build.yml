@@ -47,3 +47,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: ${{ github.ref }}.zip
+          files: extension
