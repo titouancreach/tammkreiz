@@ -3,7 +3,7 @@
 
   "name": "Tamm kreiz",
   "description": "Add capabilities to https://tamm-kreiz.bzh",
-  "version": "@version",
+  "version": "0.0.0",
 
   "permissions": ["activeTab", "tabs"],
 
