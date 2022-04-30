@@ -36,14 +36,13 @@ jobs:
           include: "extension/manifest.json"
 
       - name: Archive extension
-        uses: papeloto/action-zip@v1
         if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: extension
-          dest: ${{ github.ref }}.zip
+        run: |
+          zip -r '${{ steps.get_version.outputs.version }}.zip' .
+        working-directory: extension
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: ${{ github.ref }}.zip
+          files: extension/${{ steps.get_version.outputs.version }}.zip
