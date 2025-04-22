@@ -14,15 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: yarn
+        run: pnpm install
 
       - name: Run tests
         run: |
-          yarn test
+          pnpm test
 
       - name: Build extension
         run: |
-          yarn build
+          pnpm build
 
       - id: get_version
         uses: battila7/get-version-action@v2

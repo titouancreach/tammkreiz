@@ -21,6 +21,7 @@
     "jquery": "^3.6.1",
     "js-base64": "^3.7.2",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.48",
     "parcel": "^2.7.0"
   },
   "devDependencies": {
