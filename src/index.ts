@@ -1,8 +1,15 @@
 import * as ics from "ics";
 import { parseFrenchDateTime } from "./date.ts";
+import { buildGoogleCalendarUrl } from "./google.ts";
 import { renderArtistes, renderPrice } from "./render.ts";
 import { removeAccents } from "./string.ts";
 import type { Artist, PracticalInformation } from "./types.ts";
+
+const durationHours = 4;
+
+function renderDescription(info: PracticalInformation, artists: Artist[]): string {
+  return `${renderPrice(info.price)}<br>${renderArtistes(artists)}`;
+}
 
 function generateIcs(title: string, info: PracticalInformation, artists: Artist[]): string {
   const { dateTime } = info;
@@ -16,9 +23,9 @@ function generateIcs(title: string, info: PracticalInformation, artists: Artist[
     ],
     startInputType: "utc",
     startOutputType: "utc",
-    duration: { hours: 4 },
+    duration: { hours: durationHours },
     title,
-    description: `${renderPrice(info.price)}<br>${renderArtistes(artists)}`,
+    description: renderDescription(info, artists),
     location: info.location,
     url: window.location.href,
   });
@@ -79,23 +86,58 @@ function getPracticalsInfos(): PracticalInformation {
   };
 }
 
-function createDownloadButton(title: string, icsString: string): void {
-  const href = `data:text/calendar;charset=UTF-8,${encodeURIComponent(icsString)}`;
-
-  const filename = removeAccents(title);
-
+function appendActionButton(html: string): void {
   const actionsHeader = findByText(
     document,
     "div.blockitem.sidebareventcommunity.sidebarblock > div.blockheader",
     "Actions",
   );
 
-  actionsHeader?.parentElement?.querySelector(":scope > div.blockcontent")?.insertAdjacentHTML(
-    "beforeend",
-    `<a href="${href}" download="${filename}.ics" class="btn btn-default btn-lg btn-communaute" style="margin: 4px 0">
-        <span style="color: black; font-size: 2em" class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-        <span style="color: black; font-size: 2em">Télécharger le fichier agenda</span>
-     </a>`,
+  actionsHeader?.parentElement
+    ?.querySelector(":scope > div.blockcontent")
+    ?.insertAdjacentHTML("beforeend", html);
+}
+
+function renderActionButton(attributes: string, icon: string, label: string): string {
+  return `<a ${attributes} class="btn btn-default btn-lg btn-communaute" style="margin: 4px 0">
+        <span style="color: black; font-size: 2em" class="glyphicon glyphicon-${icon}" aria-hidden="true"></span>
+        <span style="color: black; font-size: 2em">${label}</span>
+     </a>`;
+}
+
+function createDownloadButton(title: string, icsString: string): void {
+  const href = `data:text/calendar;charset=UTF-8,${encodeURIComponent(icsString)}`;
+
+  const filename = removeAccents(title);
+
+  appendActionButton(
+    renderActionButton(
+      `href="${href}" download="${filename}.ics"`,
+      "download-alt",
+      "Télécharger le fichier agenda",
+    ),
+  );
+}
+
+function createGoogleCalendarButton(
+  title: string,
+  info: PracticalInformation,
+  artists: Artist[],
+): void {
+  const href = buildGoogleCalendarUrl({
+    title,
+    start: info.dateTime,
+    durationHours,
+    details: renderDescription(info, artists),
+    location: info.location,
+  }).replaceAll("&", "&amp;");
+
+  appendActionButton(
+    renderActionButton(
+      `href="${href}" target="_blank" rel="noopener"`,
+      "calendar",
+      "Ajouter à Google Agenda",
+    ),
   );
 }
 
@@ -112,6 +154,7 @@ if (hasPracticalInfosBlock()) {
     const s = generateIcs(title, practicalInfos, artists);
     console.log(s);
     createDownloadButton(title, s);
+    createGoogleCalendarButton(title, practicalInfos, artists);
   } catch (e) {
     console.error(
       `An error occured in the tam-kreiz chrome extension. Please report to the author: ${e}`,
