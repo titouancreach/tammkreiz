@@ -1,9 +1,7 @@
-import moment from "moment";
-
 export type Artist = string;
 
 export type PracticalInformation = {
-  dateTime: moment.Moment;
+  dateTime: Date;
   price: string;
   location: string;
 };

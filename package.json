@@ -2,33 +2,27 @@
   "name": "tammkreiz",
   "version": "1.0.0",
   "description": "Add capabilities to tamm-kreiz.bzh",
-  "author": "Titouan CREACH",
   "license": "MIT",
-  "targets": {
-    "extension": {
-      "source": "./src/index.ts",
-      "distDir": "./extension/dist"
-    }
-  },
+  "author": "Titouan CREACH",
+  "type": "module",
   "scripts": {
-    "start": "parcel watch --target extension",
-    "build": "parcel build --target extension",
-    "test": "jest"
+    "start": "pnpm build --watch",
+    "build": "esbuild src/index.ts --bundle --target=chrome120 --outfile=extension/dist/index.js",
+    "test": "node --test 'src/**/*.test.ts'",
+    "typecheck": "tsc",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check"
   },
   "dependencies": {
-    "@types/jquery": "^3.5.14",
-    "ics": "^2.40.0",
-    "jquery": "^3.6.1",
-    "js-base64": "^3.7.2",
-    "moment": "^2.29.4",
-    "moment-timezone": "^0.5.48",
-    "parcel": "^2.7.0"
+    "@date-fns/tz": "^1.5.0",
+    "ics": "^3.12.1"
   },
   "devDependencies": {
-    "@types/jest": "^29.2.0",
-    "buffer": "^6.0.3",
-    "jest": "^29.2.1",
-    "ts-jest": "^29.0.3",
-    "typescript": "^4.8.4"
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.28.2",
+    "oxfmt": "0.73.0",
+    "oxlint": "1.88.0",
+    "typescript": "^7.0.2"
   }
 }

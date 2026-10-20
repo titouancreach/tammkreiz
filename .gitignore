@@ -1,6 +1,4 @@
 node_modules/
-.cache/*
-.parcel-cache/*
 extension/dist/*
 version.properties
 .direnv/

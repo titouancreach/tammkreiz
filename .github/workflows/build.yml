@@ -3,7 +3,7 @@ name: Build and release
 on:
   push:
     branches:
-      - '**'
+      - "**"
 
     tags:
       - v*
@@ -16,10 +16,24 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Format check
+        run: pnpm format:check
+
+      - name: Typecheck
+        run: pnpm typecheck
 
       - name: Run tests
         run: |

@@ -5,7 +5,7 @@ const map = {
   i: "ïî",
   o: "ô",
   u: "ûù",
-  n: "ñ"
+  n: "ñ",
 };
 
 type char = string;
