@@ -30,5 +30,5 @@ function removeAccentOnChar(c: char): char {
 }
 
 export function removeAccents(s: string) {
-  return [...s].map(removeAccentOnChar).join("");
+  return s.replace(/./gsu, (c) => removeAccentOnChar(c));
 }

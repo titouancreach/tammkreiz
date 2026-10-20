@@ -10,7 +10,7 @@
     "build": "esbuild src/index.ts --bundle --target=chrome120 --outfile=extension/dist/index.js",
     "test": "vitest run",
     "typecheck": "tsc",
-    "lint": "oxlint",
+    "lint": "oxlint --type-aware",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "prepare": "effect-tsgo patch --typescript --oxlint",

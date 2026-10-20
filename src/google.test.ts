@@ -3,14 +3,15 @@ import { DateTime } from "effect";
 import { CalendarEvent } from "./domain.ts";
 import { buildGoogleCalendarUrl } from "./google.ts";
 
-const event = new CalendarEvent({
+const fields = {
   title: "Fest Noz à Melgven",
   start: DateTime.makeUnsafe("2026-10-24T18:00:00Z"),
   durationHours: 4,
   description: "<strong>Prix: </strong> 10€ & 8€",
   location: "Salle polyvalente 29140 Melgven",
   url: "https://www.tamm-kreiz.bzh/evenement/74109/evenement",
-});
+};
+const event = new CalendarEvent(fields);
 
 describe("buildGoogleCalendarUrl", () => {
   it("targets the google calendar event template", () => {
@@ -27,7 +28,7 @@ describe("buildGoogleCalendarUrl", () => {
   it("handles an event ending the next day", () => {
     const url = new URL(
       buildGoogleCalendarUrl(
-        new CalendarEvent({ ...event, start: DateTime.makeUnsafe("2026-10-24T21:30:00Z") }),
+        new CalendarEvent({ ...fields, start: DateTime.makeUnsafe("2026-10-24T21:30:00Z") }),
       ),
     );
     assert.strictEqual(url.searchParams.get("dates"), "20261024T213000Z/20261025T013000Z");
