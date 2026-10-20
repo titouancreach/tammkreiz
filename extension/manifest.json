@@ -7,7 +7,7 @@
 
   "content_scripts": [
     {
-      "matches": ["https://www.tamm-kreiz.bzh/*"],
+      "matches": ["https://tamm-kreiz.bzh/*", "https://www.tamm-kreiz.bzh/*"],
       "js": ["dist/index.js"]
     }
   ]
