@@ -12,17 +12,23 @@
     "typecheck": "tsc",
     "lint": "oxlint",
     "format": "oxfmt",
-    "format:check": "oxfmt --check"
+    "format:check": "oxfmt --check",
+    "prepare": "effect-tsgo patch --typescript --oxlint",
+    "effect-solutions": "node node_modules/effect-solutions/bin.js"
   },
   "dependencies": {
     "@date-fns/tz": "^1.5.0",
+    "effect": "^4.0.5",
     "ics": "^3.12.1"
   },
   "devDependencies": {
+    "@effect/tsgo": "0.54.0",
     "@types/node": "^24.0.0",
+    "effect-solutions": "^0.5.3",
     "esbuild": "^0.28.2",
     "oxfmt": "0.73.0",
     "oxlint": "1.88.0",
+    "oxlint-tsgolint": "7.0.2004",
     "typescript": "^7.0.2"
   }
 }
