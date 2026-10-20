@@ -8,27 +8,31 @@
   "scripts": {
     "start": "pnpm build --watch",
     "build": "esbuild src/index.ts --bundle --target=chrome120 --outfile=extension/dist/index.js",
-    "test": "node --test 'src/**/*.test.ts'",
+    "test": "vitest run",
     "typecheck": "tsc",
     "lint": "oxlint",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "prepare": "effect-tsgo patch --typescript --oxlint",
-    "effect-solutions": "node node_modules/effect-solutions/bin.js"
+    "effect-solutions": "node node_modules/effect-solutions/bin.js",
+    "test:watch": "vitest",
+    "test:timezones": "for tz in UTC Europe/Paris America/New_York Pacific/Auckland; do TZ=$tz vitest run || exit 1; done"
   },
   "dependencies": {
-    "@date-fns/tz": "^1.5.0",
+    "@effect/platform-browser": "^4.0.5",
     "effect": "^4.0.5",
     "ics": "^3.12.1"
   },
   "devDependencies": {
     "@effect/tsgo": "0.54.0",
-    "@types/node": "^24.0.0",
+    "@effect/vitest": "^4.0.5",
     "effect-solutions": "^0.5.3",
     "esbuild": "^0.28.2",
+    "happy-dom": "^21.0.3",
     "oxfmt": "0.73.0",
     "oxlint": "1.88.0",
     "oxlint-tsgolint": "7.0.2004",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
   }
 }

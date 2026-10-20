@@ -1,4 +1,4 @@
-import type { Artist } from "./types.ts";
+import type { Artist } from "./domain.ts";
 
 export function renderPrice(price: string): string {
   return `<strong>Prix: </strong> ${price}`;

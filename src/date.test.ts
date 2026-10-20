@@ -1,17 +1,25 @@
-import assert from "node:assert/strict";
-import { test } from "node:test";
+import { assert, describe, it } from "@effect/vitest";
+import { DateTime, Effect } from "effect";
+import { dateCases, invalidDateCases } from "./date.cases.ts";
 import { parseFrenchDateTime } from "./date.ts";
 
-test("should parse a date in Europe/Paris during summer time", () => {
-  const date = parseFrenchDateTime("Samedi 13 juin 2026 - 20h30", "Europe/Paris");
-  assert.equal(date.toISOString(), "2026-06-13T18:30:00.000Z");
-});
+describe("parseFrenchDateTime", () => {
+  for (const [input, expectedUtc] of dateCases) {
+    it.effect(`parses "${input}" as ${expectedUtc}`, () =>
+      Effect.gen(function* () {
+        const date = yield* parseFrenchDateTime(input, "Europe/Paris");
+        assert.strictEqual(DateTime.formatIso(date), expectedUtc);
+      }),
+    );
+  }
 
-test("should parse a date in Europe/Paris during winter time", () => {
-  const date = parseFrenchDateTime("Samedi 5 décembre 2026 - 21h00", "Europe/Paris");
-  assert.equal(date.toISOString(), "2026-12-05T20:00:00.000Z");
-});
-
-test("should throw on an unparsable date", () => {
-  assert.throws(() => parseFrenchDateTime("demain soir", "Europe/Paris"));
+  for (const input of invalidDateCases) {
+    it.effect(`fails with InvalidDateError on "${input}"`, () =>
+      Effect.gen(function* () {
+        const error = yield* Effect.flip(parseFrenchDateTime(input, "Europe/Paris"));
+        assert.strictEqual(error._tag, "InvalidDateError");
+        assert.strictEqual(error.input, input);
+      }),
+    );
+  }
 });

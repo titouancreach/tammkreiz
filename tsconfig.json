@@ -6,7 +6,6 @@
     "moduleResolution": "bundler",
     "moduleDetection": "force",
     "lib": ["es2022", "dom", "dom.iterable"],
-    "types": ["node"],
     "strict": true,
     "exactOptionalPropertyTypes": true,
     "noUnusedLocals": true,
@@ -18,9 +17,12 @@
     "erasableSyntaxOnly": true,
     "plugins": [
       {
-        "name": "@effect/language-service"
+        "name": "@effect/language-service",
+        "diagnosticSeverity": {
+          "unstableApiUsage": "off"
+        }
       }
     ]
   },
-  "include": ["src"]
+  "include": ["src", "vitest.config.ts"]
 }
